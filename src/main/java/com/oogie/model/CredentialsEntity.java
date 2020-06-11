@@ -1,4 +1,4 @@
-package model;
+package com.oogie.model;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,6 +12,7 @@ public class CredentialsEntity {
     private int affiliation;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     public int getId() {
         return id;

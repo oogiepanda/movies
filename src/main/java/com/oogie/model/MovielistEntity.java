@@ -1,4 +1,4 @@
-package model;
+package com.oogie.model;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -13,6 +13,7 @@ public class MovielistEntity {
     private String genre;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     public int getId() {
         return id;

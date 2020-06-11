@@ -1,4 +1,4 @@
-package controller;
+package com.oogie.controller;
 
 import javax.persistence.EntityManager;
 

@@ -1,4 +1,4 @@
-package controller;
+package com.oogie.controller;
 
 public class MovieListServiceJPA {
 }
