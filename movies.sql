@@ -1,5 +1,7 @@
 create database movies;
 
+use movies;
+
 CREATE TABLE credentials
 (
    id int PRIMARY KEY NOT NULL,
