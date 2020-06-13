@@ -1,7 +1,6 @@
 package com.oogie.model;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "credentials", schema = "movies", catalog = "")
@@ -9,11 +8,10 @@ public class CredentialsEntity {
     private int id;
     private String username;
     private String password;
-    private int affiliation;
+    private Integer affiliation;
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -23,7 +21,7 @@ public class CredentialsEntity {
     }
 
     @Basic
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, length = 10)
     public String getUsername() {
         return username;
     }
@@ -33,7 +31,7 @@ public class CredentialsEntity {
     }
 
     @Basic
-    @Column(name = "password")
+    @Column(name = "password", nullable = false, length = 10)
     public String getPassword() {
         return password;
     }
@@ -43,12 +41,12 @@ public class CredentialsEntity {
     }
 
     @Basic
-    @Column(name = "affiliation")
-    public int getAffiliation() {
+    @Column(name = "affiliation", nullable = true)
+    public Integer getAffiliation() {
         return affiliation;
     }
 
-    public void setAffiliation(int affiliation) {
+    public void setAffiliation(Integer affiliation) {
         this.affiliation = affiliation;
     }
 
@@ -56,15 +54,23 @@ public class CredentialsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         CredentialsEntity that = (CredentialsEntity) o;
-        return id == that.id &&
-                affiliation == that.affiliation &&
-                Objects.equals(username, that.username) &&
-                Objects.equals(password, that.password);
+
+        if (id != that.id) return false;
+        if (username != null ? !username.equals(that.username) : that.username != null) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+        if (affiliation != null ? !affiliation.equals(that.affiliation) : that.affiliation != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, affiliation);
+        int result = id;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (affiliation != null ? affiliation.hashCode() : 0);
+        return result;
     }
 }

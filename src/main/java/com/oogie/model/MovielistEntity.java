@@ -1,7 +1,6 @@
 package com.oogie.model;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "movielist", schema = "movies", catalog = "")
@@ -13,8 +12,7 @@ public class MovielistEntity {
     private String genre;
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -24,7 +22,7 @@ public class MovielistEntity {
     }
 
     @Basic
-    @Column(name = "moviename")
+    @Column(name = "moviename", nullable = false, length = 35)
     public String getMoviename() {
         return moviename;
     }
@@ -34,7 +32,7 @@ public class MovielistEntity {
     }
 
     @Basic
-    @Column(name = "director")
+    @Column(name = "director", nullable = true, length = 20)
     public String getDirector() {
         return director;
     }
@@ -44,7 +42,7 @@ public class MovielistEntity {
     }
 
     @Basic
-    @Column(name = "year")
+    @Column(name = "year", nullable = true)
     public Integer getYear() {
         return year;
     }
@@ -54,7 +52,7 @@ public class MovielistEntity {
     }
 
     @Basic
-    @Column(name = "genre")
+    @Column(name = "genre", nullable = true, length = 10)
     public String getGenre() {
         return genre;
     }
@@ -67,16 +65,25 @@ public class MovielistEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         MovielistEntity that = (MovielistEntity) o;
-        return id == that.id &&
-                Objects.equals(moviename, that.moviename) &&
-                Objects.equals(director, that.director) &&
-                Objects.equals(year, that.year) &&
-                Objects.equals(genre, that.genre);
+
+        if (id != that.id) return false;
+        if (moviename != null ? !moviename.equals(that.moviename) : that.moviename != null) return false;
+        if (director != null ? !director.equals(that.director) : that.director != null) return false;
+        if (year != null ? !year.equals(that.year) : that.year != null) return false;
+        if (genre != null ? !genre.equals(that.genre) : that.genre != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, moviename, director, year, genre);
+        int result = id;
+        result = 31 * result + (moviename != null ? moviename.hashCode() : 0);
+        result = 31 * result + (director != null ? director.hashCode() : 0);
+        result = 31 * result + (year != null ? year.hashCode() : 0);
+        result = 31 * result + (genre != null ? genre.hashCode() : 0);
+        return result;
     }
 }
