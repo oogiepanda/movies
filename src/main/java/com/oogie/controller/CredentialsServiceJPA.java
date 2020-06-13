@@ -8,10 +8,10 @@ import javax.persistence.TypedQuery;
 import java.util.Collections;
 import java.util.List;
 
-import static jdk.internal.joptsimple.internal.Strings.isNullOrEmpty;
+import static com.mysql.cj.util.StringUtils.isNullOrEmpty;
 
 
-public class CredentialsServiceJPA extends BaseServiceJPA{
+public class CredentialsServiceJPA extends BaseServiceJPA {
     public CredentialsServiceJPA(EntityManager entityManager) {
         super(entityManager);
     }
@@ -46,7 +46,7 @@ public class CredentialsServiceJPA extends BaseServiceJPA{
         if (!isNullOrEmpty(ce.getPassword())) {
             sb.append("and password = '").append(ce.getUsername()).append("'");
         }
-        if (ce.getAffiliation() == 0) {
+        if (ce.getAffiliation() != null) {
             sb.append("and affiliation = ").append(ce.getUsername());
         }
         System.out.println(sb);
@@ -58,7 +58,7 @@ public class CredentialsServiceJPA extends BaseServiceJPA{
     private boolean isEmpty(CredentialsEntity ce) {
         return (isNullOrEmpty(ce.getUsername()) &&
                 isNullOrEmpty(ce.getPassword()) &&
-                ce.getAffiliation() == 0);
+                ce.getAffiliation() == null);
     }
 
     public void update(CredentialsEntity ce, int id) {
@@ -70,7 +70,7 @@ public class CredentialsServiceJPA extends BaseServiceJPA{
         if (!isNullOrEmpty(ce.getPassword())) {
             credentialsEntity.setPassword(ce.getPassword());
         }
-        if (ce.getAffiliation() != 0) {
+        if (ce.getAffiliation() != null) {
             credentialsEntity.setAffiliation(ce.getAffiliation());
         }
         entityManager.getTransaction().commit();
