@@ -2,25 +2,8 @@ create database movies;
 
 use movies;
 
-CREATE TABLE credentials
-(
-   id int PRIMARY KEY NOT NULL,
-   username varchar(10) NOT NULL,
-   password varchar(10) NOT NULL,
-   affiliation int
-)
-;
-CREATE UNIQUE INDEX PRIMARY ON credentials(id)
-;
+create table credentials (id int not null auto_increment, username varchar(6) not null, 
+password varchar(6) not null, affiliation int, primary key (id));
 
-CREATE TABLE movielist
-(
-   id int PRIMARY KEY NOT NULL,
-   moviename varchar(35) NOT NULL,
-   director varchar(20),
-   year int,
-   genre varchar(10)
-)
-;
-CREATE UNIQUE INDEX PRIMARY ON movielist(id)
-;
+create table credentials (id int not null auto_increment, moviename varchar(35) not null, 
+director varchar(20) not null, year int, genre varchar(10), primary key (id));
