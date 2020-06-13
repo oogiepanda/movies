@@ -41,13 +41,13 @@ public class CredentialsServiceJPA extends BaseServiceJPA {
         entityManager.getTransaction().begin();
         StringBuilder sb = new StringBuilder("select c from CredentialsEntity c where 1 = 1");
         if (!isNullOrEmpty(ce.getUsername())) {
-            sb.append("and username = '").append(ce.getUsername()).append("'");
+            sb.append(" and username = '").append(ce.getUsername()).append("'");
         }
         if (!isNullOrEmpty(ce.getPassword())) {
-            sb.append("and password = '").append(ce.getUsername()).append("'");
+            sb.append(" and password = '").append(ce.getPassword()).append("'");
         }
         if (ce.getAffiliation() != null) {
-            sb.append("and affiliation = ").append(ce.getUsername());
+            sb.append(" and affiliation = ").append(ce.getAffiliation());
         }
         System.out.println(sb);
         TypedQuery<CredentialsEntity> query = entityManager.createQuery(sb.toString(), CredentialsEntity.class);

@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -44,8 +46,8 @@ class CredentialsServiceJPATest extends BaseTest {
     void crudJPA() {
         CredentialsEntity orig = createCredentialsEntity();
         int id = credentialsServiceJPA.create(orig);
-        CredentialsEntity nuCred = (CredentialsEntity) credentialsServiceJPA.retrieve(orig);
-        assertThat(orig.getUsername(), is(nuCred.getUsername()));
+        List<CredentialsEntity> nuCred = credentialsServiceJPA.retrieve(orig);
+        assertThat(orig.getUsername(), is(nuCred.get(0).getUsername()));
 
         credentialsServiceJPA.delete(id);
         assertThat(orig, is(nullValue()));
