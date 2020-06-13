@@ -38,7 +38,6 @@ public class CredentialsServiceJPA extends BaseServiceJPA {
         if (isEmpty(ce)) {
             return Collections.emptyList();
         }
-        entityManager.getTransaction().begin();
         StringBuilder sb = new StringBuilder("select c from CredentialsEntity c where 1 = 1");
         if (!isNullOrEmpty(ce.getUsername())) {
             sb.append(" and username = '").append(ce.getUsername()).append("'");

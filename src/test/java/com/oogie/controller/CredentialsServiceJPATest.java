@@ -49,8 +49,14 @@ class CredentialsServiceJPATest extends BaseTest {
         List<CredentialsEntity> nuCred = credentialsServiceJPA.retrieve(orig);
         assertThat(orig.getUsername(), is(nuCred.get(0).getUsername()));
 
+        nuCred.get(0).setAffiliation(2);
+        credentialsServiceJPA.update(nuCred.get(0), id);
+        List<CredentialsEntity> thirdCred = credentialsServiceJPA.retrieve(nuCred.get(0));
+        assertThat(thirdCred.get(0).getAffiliation(), is(2));
+
         credentialsServiceJPA.delete(id);
-        assertThat(orig, is(nullValue()));
+        List<CredentialsEntity> fourthCred = credentialsServiceJPA.retrieve(orig);
+        assertThat(fourthCred.size(), is(0));
     }
 
 
