@@ -39,19 +39,18 @@ public class MovieListServiceJPA extends BaseServiceJPA {
         if (isEmpty(me)) {
             return Collections.emptyList();
         }
-        entityManager.getTransaction().begin();
-        StringBuilder sb = new StringBuilder("select m from MovieListEntity m where 1 = 1");
+        StringBuilder sb = new StringBuilder("select m from MovielistEntity m where 1 = 1");
         if (!isNullOrEmpty(me.getMoviename())) {
-            sb.append("and moviename = '").append(me.getMoviename()).append("'");
+            sb.append(" and moviename = '").append(me.getMoviename()).append("'");
         }
         if (!isNullOrEmpty(me.getMoviename())) {
-            sb.append("and director = '").append(me.getDirector()).append("'");
+            sb.append(" and director = '").append(me.getDirector()).append("'");
         }
         if (me.getYear() != null) {
-            sb.append("and year = ").append(me.getYear());
+            sb.append(" and year = ").append(me.getYear());
         }
         if (!isNullOrEmpty(me.getGenre())) {
-            sb.append("and genre = '").append(me.getGenre()).append("'");
+            sb.append(" and genre = '").append(me.getGenre()).append("'");
         }
         System.out.println(sb);
         TypedQuery<MovielistEntity> query = entityManager.createQuery(sb.toString(), MovielistEntity.class);
@@ -66,7 +65,7 @@ public class MovieListServiceJPA extends BaseServiceJPA {
                 isNullOrEmpty(me.getGenre()));
     }
 
-    private void update(MovielistEntity me, int id) {
+    public void update(MovielistEntity me, int id) {
         MovielistEntity movielistEntity = entityManager.find(MovielistEntity.class, id);
         entityManager.getTransaction().begin();
         if (!isNullOrEmpty(me.getMoviename())) {
@@ -86,8 +85,8 @@ public class MovieListServiceJPA extends BaseServiceJPA {
 
     public void delete(int id) {
         entityManager.getTransaction().begin();
-        CredentialsEntity credentialsEntity = entityManager.find(CredentialsEntity.class, id);
-        entityManager.remove(credentialsEntity);
+        MovielistEntity movielistEntity = entityManager.find(MovielistEntity.class, id);
+        entityManager.remove(movielistEntity);
         entityManager.getTransaction().commit();
     }
 }

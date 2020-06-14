@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -60,4 +61,36 @@ class CredentialsServiceJPATest extends BaseTest {
     }
 
 
+    @Test
+    public void retrieveManyResults() {
+        CredentialsEntity original = createCredentialsEntity();
+        List<CredentialsEntity> nuCredentials = createManyResults(3);
+        CredentialsEntity searchCred = new CredentialsEntity();
+        searchCred.setUsername(original.getUsername());
+        List<CredentialsEntity> credentials = credentialsServiceJPA.retrieve(searchCred);
+        assertThat(credentials.size(), is(3));
+        for (CredentialsEntity c : nuCredentials) {
+            credentialsServiceJPA.delete(c.getId());
+        }
+    }
+
+    private List<CredentialsEntity> createManyResults(int counter) {
+        List<CredentialsEntity> credentials = new ArrayList<>();
+        for (int i = 0; i < counter; i++) {
+            CredentialsEntity nuCred = createCredentialsEntity();
+            int id = credentialsServiceJPA.create(nuCred);
+            CredentialsEntity clone = clone(nuCred, id);
+            credentials.add(clone);
+        }
+        return credentials;
+    }
+
+    private CredentialsEntity clone(CredentialsEntity credentials, int id) {
+        CredentialsEntity clone = new CredentialsEntity();
+        clone.setId(id);
+        clone.setUsername(credentials.getUsername());
+        clone.setPassword(credentials.getPassword());
+        clone.setAffiliation(credentials.getAffiliation());
+        return clone;
+    }
 }

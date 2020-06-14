@@ -12,6 +12,7 @@ public class MovielistEntity {
     private String genre;
 
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
