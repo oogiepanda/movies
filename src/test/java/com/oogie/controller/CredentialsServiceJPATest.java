@@ -9,12 +9,10 @@ import org.junit.jupiter.api.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class CredentialsServiceJPATest extends BaseTest {
@@ -40,6 +38,14 @@ class CredentialsServiceJPATest extends BaseTest {
         credentialsEntity.setUsername("admin");
         credentialsEntity.setPassword("admin");
         credentialsEntity.setAffiliation(1);
+        return credentialsEntity;
+    }
+
+    private CredentialsEntity createCredentialsEntity2() {
+        CredentialsEntity credentialsEntity = new CredentialsEntity();
+        credentialsEntity.setUsername("user");
+        credentialsEntity.setPassword("user");
+        credentialsEntity.setAffiliation(2);
         return credentialsEntity;
     }
 

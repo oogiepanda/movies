@@ -1,6 +1,5 @@
 package com.oogie.controller;
 
-import com.oogie.model.CredentialsEntity;
 import com.oogie.model.MovielistEntity;
 
 import javax.persistence.EntityManager;
@@ -43,7 +42,7 @@ public class MovieListServiceJPA extends BaseServiceJPA {
         if (!isNullOrEmpty(me.getMoviename())) {
             sb.append(" and moviename = '").append(me.getMoviename()).append("'");
         }
-        if (!isNullOrEmpty(me.getMoviename())) {
+        if (!isNullOrEmpty(me.getDirector())) {
             sb.append(" and director = '").append(me.getDirector()).append("'");
         }
         if (me.getYear() != null) {
@@ -77,7 +76,7 @@ public class MovieListServiceJPA extends BaseServiceJPA {
         if (me.getYear() != null) {
             movielistEntity.setYear(me.getYear());
         }
-        if (isNullOrEmpty(me.getGenre())) {
+        if (!isNullOrEmpty(me.getGenre())) {
             movielistEntity.setGenre(me.getGenre());
         }
         entityManager.getTransaction().commit();
